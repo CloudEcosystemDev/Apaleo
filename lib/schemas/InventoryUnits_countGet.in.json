@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "properties": {
+        "propertyId": {
+            "type": "string"
+        },
+        "unitGroupId": {
+            "type": "string"
+        },
+        "unitGroupIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "unitAttributeIds": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "isOccupied": {
+            "type": "boolean"
+        },
+        "maintenanceType": {
+            "type": "string",
+            "enum": [
+                "OutOfService",
+                "OutOfOrder",
+                "OutOfInventory"
+            ]
+        },
+        "condition": {
+            "type": "string",
+            "enum": [
+                "Clean",
+                "CleanToBeInspected",
+                "Dirty"
+            ]
+        },
+        "textSearch": {
+            "type": "string"
+        }
+    }
+}

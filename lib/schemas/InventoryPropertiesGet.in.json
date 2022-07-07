@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "array",
+            "items": {
+                "enum": [
+                    "Test",
+                    "Live"
+                ],
+                "type": "string"
+            }
+        },
+        "includeArchived": {
+            "type": "boolean"
+        },
+        "countryCode": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "pageNumber": {
+            "type": "integer",
+            "default": 1
+        },
+        "pageSize": {
+            "type": "integer",
+            "default": 100
+        },
+        "expand": {
+            "type": "array",
+            "items": {
+                "enum": [
+                    "actions"
+                ],
+                "type": "string"
+            }
+        }
+    }
+}

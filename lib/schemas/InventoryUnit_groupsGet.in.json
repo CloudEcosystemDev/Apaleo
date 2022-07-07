@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "propertyId": {
+            "type": "string"
+        },
+        "pageNumber": {
+            "type": "integer",
+            "default": 1
+        },
+        "pageSize": {
+            "type": "integer",
+            "default": 100
+        },
+        "expand": {
+            "type": "array",
+            "items": {
+                "enum": [
+                    "property"
+                ],
+                "type": "string"
+            }
+        }
+    }
+}

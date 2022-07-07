@@ -1,0 +1,182 @@
+{
+    "required": [
+        "count",
+        "units"
+    ],
+    "type": "object",
+    "properties": {
+        "units": {
+            "description": "List of units",
+            "type": "array",
+            "items": {
+                "required": [
+                    "created",
+                    "description",
+                    "id",
+                    "maxPersons",
+                    "name",
+                    "property",
+                    "status"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The unit id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name for the unit",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The description for the unit",
+                        "type": "string"
+                    },
+                    "property": {
+                        "required": [
+                            "id"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "The property id",
+                                "type": "string"
+                            },
+                            "code": {
+                                "description": "The code for the property that can be shown in reports and table views",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name for the property",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "The description for the property",
+                                "type": "string",
+                                "readOnly": true
+                            }
+                        }
+                    },
+                    "unitGroup": {
+                        "required": [
+                            "id"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "The unit group id",
+                                "type": "string"
+                            },
+                            "code": {
+                                "description": "The code for the unit group that can be shown in reports and table views",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name for the unit group",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "The description for the unit group",
+                                "type": "string"
+                            },
+                            "type": {
+                                "description": "The unit group type",
+                                "enum": [
+                                    "BedRoom",
+                                    "MeetingRoom",
+                                    "EventSpace",
+                                    "ParkingLot",
+                                    "Other"
+                                ],
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "status": {
+                        "required": [
+                            "condition",
+                            "isOccupied"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "isOccupied": {
+                                "type": "boolean"
+                            },
+                            "condition": {
+                                "enum": [
+                                    "Clean",
+                                    "CleanToBeInspected",
+                                    "Dirty"
+                                ],
+                                "type": "string"
+                            },
+                            "maintenance": {
+                                "required": [
+                                    "id",
+                                    "type"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "description": "The id for the scheduled maintenance",
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "description": "The type of maintenance that is planned for the unit. A small repair (OutOfService),\r\na bigger disfunction that does not allow to sell the unit (OutOfOrder) or is it\r\neven under construction and should reduce the house count (OutOfInventory)",
+                                        "enum": [
+                                            "OutOfService",
+                                            "OutOfOrder",
+                                            "OutOfInventory"
+                                        ],
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "maxPersons": {
+                        "format": "int32",
+                        "description": "Maximum number of persons for the unit",
+                        "type": "integer"
+                    },
+                    "created": {
+                        "format": "date-time",
+                        "description": "Date of creation<br />A date and time (without fractional second part) in UTC or with UTC offset as defined in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601:2004</a>",
+                        "type": "string"
+                    },
+                    "attributes": {
+                        "description": "Collection of user defined attributes of unit",
+                        "type": "array",
+                        "items": {
+                            "required": [
+                                "id",
+                                "name"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "description": "Id of unit attribute",
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "The name of the unit attribute",
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "description": "Description of unit attribute",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "count": {
+            "format": "int64",
+            "description": "Total count of items",
+            "type": "integer"
+        }
+    },
+    "example": "{\n  \"units\": [\n    {\n      \"id\": \"MUC-JQI\",\n      \"name\": \"A.101\",\n      \"description\": \"Room 101\",\n      \"property\": {\n        \"id\": \"MUC\",\n        \"code\": \"MUC\",\n        \"name\": \"Demo Hotel Munich\",\n        \"description\": \"This is the demo hotel Munich\"\n      },\n      \"unitGroup\": {\n        \"id\": \"MUC-DBL\",\n        \"code\": \"DBL\",\n        \"name\": \"Double\",\n        \"description\": \"Double\",\n        \"type\": \"BedRoom\"\n      },\n      \"status\": {\n        \"isOccupied\": true,\n        \"condition\": \"Dirty\",\n        \"maintenance\": {\n          \"id\": \"MUC-JQI-SGHZD\",\n          \"type\": \"OutOfService\"\n        }\n      },\n      \"maxPersons\": 4,\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"attributes\": [\n        {\n          \"id\": \"GRTDTLDD\",\n          \"name\": \"Floor 2\",\n          \"description\": \"Floor number\"\n        },\n        {\n          \"id\": \"KQOSXHLS\",\n          \"name\": \"Street view\",\n          \"description\": \"View from the room\"\n        }\n      ]\n    },\n    {\n      \"id\": \"MUC-ELG\",\n      \"name\": \"A.102\",\n      \"description\": \"Room 102\",\n      \"property\": {\n        \"id\": \"MUC\",\n        \"code\": \"MUC\",\n        \"name\": \"Demo Hotel Munich\",\n        \"description\": \"This is the demo hotel Munich\"\n      },\n      \"unitGroup\": {\n        \"id\": \"MUC-SGL\",\n        \"code\": \"SGL\",\n        \"name\": \"Standard\",\n        \"description\": \"Standard\",\n        \"type\": \"BedRoom\"\n      },\n      \"status\": {\n        \"isOccupied\": false,\n        \"condition\": \"Clean\",\n        \"maintenance\": {\n          \"id\": \"MUC-ELG-GSZGK\",\n          \"type\": \"OutOfOrder\"\n        }\n      },\n      \"maxPersons\": 1,\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"attributes\": [\n        {\n          \"id\": \"GRTDTLDD\",\n          \"name\": \"Floor 2\",\n          \"description\": \"Floor number\"\n        }\n      ]\n    }\n  ],\n  \"count\": 2\n}"
+}

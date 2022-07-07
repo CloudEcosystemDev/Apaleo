@@ -1,0 +1,13 @@
+{
+    "required": [
+        "count"
+    ],
+    "type": "object",
+    "properties": {
+        "count": {
+            "format": "int64",
+            "type": "integer"
+        }
+    },
+    "example": "{\n  \"count\": 50\n}"
+}

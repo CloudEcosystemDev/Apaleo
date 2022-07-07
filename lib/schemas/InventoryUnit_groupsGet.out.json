@@ -1,0 +1,100 @@
+{
+    "required": [
+        "count",
+        "unitGroups"
+    ],
+    "type": "object",
+    "properties": {
+        "unitGroups": {
+            "description": "List of unit groups",
+            "type": "array",
+            "items": {
+                "required": [
+                    "code",
+                    "description",
+                    "id",
+                    "memberCount",
+                    "name",
+                    "property",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The unit group id",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "The code for the unit group that can be shown in reports and table views",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name for the unit group",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The description for the unit group",
+                        "type": "string"
+                    },
+                    "memberCount": {
+                        "format": "int32",
+                        "description": "Number of units in this group",
+                        "type": "integer"
+                    },
+                    "maxPersons": {
+                        "format": "int32",
+                        "description": "Maximum number of persons for the unit group",
+                        "type": "integer"
+                    },
+                    "rank": {
+                        "format": "int32",
+                        "description": "The unit group rank",
+                        "type": "integer"
+                    },
+                    "type": {
+                        "description": "The unit group type",
+                        "enum": [
+                            "BedRoom",
+                            "MeetingRoom",
+                            "EventSpace",
+                            "ParkingLot",
+                            "Other"
+                        ],
+                        "type": "string"
+                    },
+                    "property": {
+                        "required": [
+                            "id"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "The property id",
+                                "type": "string"
+                            },
+                            "code": {
+                                "description": "The code for the property that can be shown in reports and table views",
+                                "type": "string"
+                            },
+                            "name": {
+                                "description": "The name for the property",
+                                "type": "string"
+                            },
+                            "description": {
+                                "description": "The description for the property",
+                                "type": "string",
+                                "readOnly": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "count": {
+            "format": "int64",
+            "description": "Total count of items",
+            "type": "integer"
+        }
+    },
+    "example": "{\n  \"unitGroups\": [\n    {\n      \"id\": \"MUC-DBL\",\n      \"code\": \"DBL\",\n      \"name\": \"Double Room\",\n      \"description\": \"This is a nice room with as kingsize bed and flat screen\",\n      \"memberCount\": 2,\n      \"maxPersons\": 4,\n      \"rank\": 2,\n      \"type\": \"BedRoom\",\n      \"property\": {\n        \"id\": \"MUC\",\n        \"code\": \"MUC\",\n        \"name\": \"Demo Hotel Munich\",\n        \"description\": \"This is the demo hotel Munich\"\n      }\n    },\n    {\n      \"id\": \"BER-SGL\",\n      \"code\": \"SGL\",\n      \"name\": \"Standard Room\",\n      \"description\": \"This is a nice room with as standard bed\",\n      \"memberCount\": 5,\n      \"maxPersons\": 2,\n      \"rank\": 1,\n      \"type\": \"BedRoom\",\n      \"property\": {\n        \"id\": \"BER\",\n        \"code\": \"BER\",\n        \"name\": \"Demo Hotel Berlin\",\n        \"description\": \"This is the demo hotel Berlin\"\n      }\n    }\n  ],\n  \"count\": 0\n}"
+}

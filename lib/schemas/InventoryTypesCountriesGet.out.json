@@ -1,0 +1,16 @@
+{
+    "required": [
+        "countryCodes"
+    ],
+    "type": "object",
+    "properties": {
+        "countryCodes": {
+            "description": "List of ISO country codes.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "example": "{\n  \"countryCodes\": [\n    \"DE\",\n    \"US\"\n  ]\n}"
+}

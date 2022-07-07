@@ -1,0 +1,41 @@
+{
+    "required": [
+        "count",
+        "unitAttributes"
+    ],
+    "type": "object",
+    "properties": {
+        "unitAttributes": {
+            "description": "List of unit attributes",
+            "type": "array",
+            "items": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The id of the unit attribute",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the unit attribute",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The description of the unit attribute",
+                        "type": "string"
+                    }
+                },
+                "example": "{\n  \"id\": \"KQOSXHLS\",\n  \"name\": \"Floor 1\",\n  \"description\": \"Floor number\"\n}"
+            }
+        },
+        "count": {
+            "format": "int64",
+            "description": "Total count of items",
+            "type": "integer"
+        }
+    },
+    "example": "{\n  \"unitAttributes\": [\n    {\n      \"id\": \"KQOSXHLS\",\n      \"name\": \"Floor 1\",\n      \"description\": \"Floor number\"\n    },\n    {\n      \"id\": \"ADVFSSUL\",\n      \"name\": \"Street view\",\n      \"description\": \"View from the room\"\n    }\n  ],\n  \"count\": 2\n}"
+}

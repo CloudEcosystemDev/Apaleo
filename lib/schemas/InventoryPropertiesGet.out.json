@@ -1,0 +1,206 @@
+{
+    "required": [
+        "count",
+        "properties"
+    ],
+    "type": "object",
+    "properties": {
+        "properties": {
+            "description": "List of properties",
+            "type": "array",
+            "items": {
+                "required": [
+                    "code",
+                    "commercialRegisterEntry",
+                    "companyName",
+                    "created",
+                    "currencyCode",
+                    "id",
+                    "isArchived",
+                    "isTemplate",
+                    "location",
+                    "name",
+                    "paymentTerms",
+                    "status",
+                    "taxId",
+                    "timeZone"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The property id",
+                        "type": "string"
+                    },
+                    "code": {
+                        "description": "The code for the property that can be shown in reports and table views",
+                        "type": "string"
+                    },
+                    "propertyTemplateId": {
+                        "description": "The id of the property used as a template while creating the property",
+                        "type": "string"
+                    },
+                    "isTemplate": {
+                        "description": "Whether the property can be used as a template for other properties",
+                        "type": "boolean"
+                    },
+                    "name": {
+                        "description": "The name for the property",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "The description for the property",
+                        "type": "string"
+                    },
+                    "companyName": {
+                        "description": "The legal name of the company running the property.",
+                        "type": "string"
+                    },
+                    "managingDirectors": {
+                        "description": "The managing director(s) of the company, as they should appear on invoices",
+                        "type": "string"
+                    },
+                    "commercialRegisterEntry": {
+                        "description": "The entry in the Commercial Register of the company running the property, as it should appear on invoices",
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "description": "The Tax-ID of the company running the property, as it should appear on invoices",
+                        "type": "string"
+                    },
+                    "location": {
+                        "required": [
+                            "addressLine1",
+                            "city",
+                            "countryCode",
+                            "postalCode"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "addressLine1": {
+                                "type": "string"
+                            },
+                            "addressLine2": {
+                                "type": "string"
+                            },
+                            "postalCode": {
+                                "type": "string"
+                            },
+                            "city": {
+                                "type": "string"
+                            },
+                            "regionCode": {
+                                "type": "string"
+                            },
+                            "countryCode": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "bankAccount": {
+                        "type": "object",
+                        "properties": {
+                            "iban": {
+                                "type": "string"
+                            },
+                            "bic": {
+                                "type": "string"
+                            },
+                            "bank": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "paymentTerms": {
+                        "description": "The payment terms used for all rate plans",
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "timeZone": {
+                        "description": "The time zone name of the property from the IANA Time Zone Database.\r\n(see: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)",
+                        "type": "string"
+                    },
+                    "currencyCode": {
+                        "description": "The currency a property works with.",
+                        "type": "string"
+                    },
+                    "created": {
+                        "format": "date-time",
+                        "description": "Date of creation<br />A date and time (without fractional second part) in UTC or with UTC offset as defined in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601:2004</a>",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status of the property",
+                        "enum": [
+                            "Test",
+                            "Live"
+                        ],
+                        "type": "string"
+                    },
+                    "isArchived": {
+                        "description": "Is the property archived",
+                        "type": "boolean"
+                    },
+                    "actions": {
+                        "description": "The list of actions for this property",
+                        "type": "array",
+                        "items": {
+                            "required": [
+                                "action",
+                                "isAllowed"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "action": {
+                                    "enum": [
+                                        "Delete",
+                                        "Archive",
+                                        "SetLive",
+                                        "DeleteTransactionalData"
+                                    ],
+                                    "type": "string"
+                                },
+                                "isAllowed": {
+                                    "type": "boolean"
+                                },
+                                "reasons": {
+                                    "type": "array",
+                                    "items": {
+                                        "required": [
+                                            "code",
+                                            "message"
+                                        ],
+                                        "type": "object",
+                                        "properties": {
+                                            "code": {
+                                                "enum": [
+                                                    "DeleteNotAllowedForPropertyNotInStatusTest",
+                                                    "ArchiveNotAllowedForPropertyNotInStatusLive",
+                                                    "ArchiveNotAllowedForPropertyWhichIsAlreadyArchived",
+                                                    "SetToLiveNotAllowedForPropertyNotInStatusTest",
+                                                    "SetToLiveNotAllowedForPropertyInNonLiveAccount",
+                                                    "DeleteTransactionalDataNotAllowedForPropertyNotInStatusTest"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "message": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "count": {
+            "format": "int64",
+            "description": "Total count of items",
+            "type": "integer"
+        }
+    },
+    "example": "{\n  \"properties\": [\n    {\n      \"id\": \"MUC\",\n      \"code\": \"MUC\",\n      \"isTemplate\": true,\n      \"name\": \"Demo Hotel Munich\",\n      \"description\": \"This is the demo hotel Munich\",\n      \"companyName\": \"Company\",\n      \"commercialRegisterEntry\": \"CRE\",\n      \"taxId\": \"Tax\",\n      \"location\": {\n        \"addressLine1\": \"Marienplatz 1\",\n        \"postalCode\": \"80331\",\n        \"city\": \"München\",\n        \"countryCode\": \"DE\"\n      },\n      \"paymentTerms\": {\n        \"de\": \"Zahlbar bei Check In\",\n        \"en\": \"Payment on check-in\"\n      },\n      \"timeZone\": \"Europe/Berlin\",\n      \"currencyCode\": \"EUR\",\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"status\": \"Test\",\n      \"isArchived\": false\n    },\n    {\n      \"id\": \"BER\",\n      \"code\": \"BER\",\n      \"propertyTemplateId\": \"MUC\",\n      \"isTemplate\": false,\n      \"name\": \"Demo Hotel Berlin\",\n      \"description\": \"This is the demo hotel Berlin\",\n      \"companyName\": \"Company\",\n      \"commercialRegisterEntry\": \"CRE\",\n      \"taxId\": \"Tax\",\n      \"location\": {\n        \"addressLine1\": \"Mohrenstraße 30\",\n        \"postalCode\": \"10117\",\n        \"city\": \"Berlin\",\n        \"countryCode\": \"DE\"\n      },\n      \"paymentTerms\": {\n        \"de\": \"Zahlbar bei Check In\",\n        \"en\": \"Payment on check-in\"\n      },\n      \"timeZone\": \"Europe/Berlin\",\n      \"currencyCode\": \"EUR\",\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"status\": \"Test\",\n      \"isArchived\": false\n    }\n  ],\n  \"count\": 0\n}"
+}

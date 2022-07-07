@@ -1,0 +1,13 @@
+{
+    "required": [
+        "id"
+    ],
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unit attribute id",
+            "type": "string"
+        }
+    },
+    "example": "{\n  \"id\": \"FLOOR\"\n}"
+}

@@ -1,0 +1,16 @@
+{
+    "required": [
+        "ids"
+    ],
+    "type": "object",
+    "properties": {
+        "ids": {
+            "description": "The unit ids",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+    },
+    "example": "{\n  \"ids\": [\n    \"MUC-CFP\",\n    \"MUC-XTA\",\n    \"MUC-CPZ\"\n  ]\n}"
+}

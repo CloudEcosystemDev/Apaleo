@@ -1,0 +1,89 @@
+{
+    "required": [
+        "code",
+        "description",
+        "id",
+        "maxPersons",
+        "memberCount",
+        "name",
+        "property",
+        "type"
+    ],
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unit group id",
+            "type": "string"
+        },
+        "code": {
+            "description": "The code for the unit group that can be shown in reports and table views",
+            "type": "string"
+        },
+        "property": {
+            "required": [
+                "id"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "The property id",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "The code for the property that can be shown in reports and table views",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name for the property",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description for the property",
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "name": {
+            "description": "The name for the unit group",
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "memberCount": {
+            "format": "int32",
+            "description": "Number of units in this group",
+            "type": "integer"
+        },
+        "description": {
+            "description": "The description for the unit group",
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "maxPersons": {
+            "format": "int32",
+            "description": "Maximum number of persons for the unit group",
+            "type": "integer"
+        },
+        "rank": {
+            "format": "int32",
+            "description": "The unit group rank",
+            "type": "integer"
+        },
+        "type": {
+            "description": "The unit group type",
+            "enum": [
+                "BedRoom",
+                "MeetingRoom",
+                "EventSpace",
+                "ParkingLot",
+                "Other"
+            ],
+            "type": "string"
+        }
+    },
+    "example": "{\n  \"id\": \"MUC-DBL\",\n  \"code\": \"DBL\",\n  \"property\": {\n    \"id\": \"MUC\",\n    \"code\": \"MUC\",\n    \"name\": \"Demo Hotel Munich\",\n    \"description\": \"This is the demo hotel Munich\"\n  },\n  \"name\": {\n    \"en\": \"Double Room\",\n    \"de\": \"Doppelzimmer\"\n  },\n  \"memberCount\": 0,\n  \"description\": {\n    \"en\": \"This is a nice room with as kingsize bed and flat screen\",\n    \"de\": \"Dies ist ein schönes Zimmer mit Kingsize-Bett und Flachbildschirm\"\n  },\n  \"maxPersons\": 4,\n  \"rank\": 2,\n  \"type\": \"BedRoom\"\n}"
+}

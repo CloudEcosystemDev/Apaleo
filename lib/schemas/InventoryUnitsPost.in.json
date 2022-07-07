@@ -1,0 +1,71 @@
+{
+    "type": "object",
+    "properties": {
+        "Idempotency-Key": {
+            "type": "string"
+        },
+        "requestBody": {
+            "required": [
+                "description",
+                "maxPersons",
+                "name",
+                "propertyId"
+            ],
+            "type": "object",
+            "properties": {
+                "propertyId": {
+                    "description": "The id of the property where the unit will be created",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name for the unit",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description for the unit",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "unitGroupId": {
+                    "description": "The id of the unit group",
+                    "type": "string"
+                },
+                "maxPersons": {
+                    "format": "int32",
+                    "description": "Maximum number of persons for the unit",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "condition": {
+                    "description": "Condition of the unit",
+                    "enum": [
+                        "Clean",
+                        "CleanToBeInspected",
+                        "Dirty"
+                    ],
+                    "type": "string"
+                },
+                "attributes": {
+                    "description": "Collection of user defined attributes of unit",
+                    "type": "array",
+                    "items": {
+                        "required": [
+                            "id"
+                        ],
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "description": "Id of unit attribute",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "example": "{\n  \"propertyId\": \"MUC\",\n  \"name\": \"A.102\",\n  \"description\": {\n    \"en\": \"Room 102\",\n    \"de\": \"Zimmer 102\"\n  },\n  \"unitGroupId\": \"MUC-DBL\",\n  \"maxPersons\": 4,\n  \"condition\": \"Clean\",\n  \"attributes\": []\n}"
+        }
+    }
+}

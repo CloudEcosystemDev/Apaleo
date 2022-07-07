@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "required": [
+                "description",
+                "name"
+            ],
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "The name for the unit group",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "description": "The description for the unit group",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "maxPersons": {
+                    "format": "int32",
+                    "description": "Maximum number of persons for the unit group.\r\nIf this value is increased, the surcharges for the related rate plans must be specified in order for the rate plans to be sellable for the new possible occupancies.",
+                    "type": "integer"
+                },
+                "rank": {
+                    "format": "int32",
+                    "description": "The unit group rank\r\nRestrictions:\r\n- Should be greater or equal to one",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                }
+            },
+            "example": "{\n  \"name\": {\n    \"en\": \"Double Room\",\n    \"de\": \"Doppelzimmer\"\n  },\n  \"description\": {\n    \"en\": \"This is a nice room with as kingsize bed and flat screen\",\n    \"de\": \"Dies ist ein schönes Zimmer mit Kingsize-Bett und Flachbildschirm\"\n  },\n  \"maxPersons\": 4,\n  \"rank\": 2\n}"
+        }
+    }
+}

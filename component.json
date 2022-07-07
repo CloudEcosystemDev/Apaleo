@@ -1,0 +1,420 @@
+{
+    "title": "apaleo Inventory API",
+    "description": "Setup and manage <b>properties</b> (hotels, etc.) and all the entites in them to rent out:\n<b>Units</b> such as rooms, parking lots, beds, meeting rooms, etc. Units can be combined into <b>groups</b> (single rooms, double rooms).",
+    "docsUrl": "",
+    "url": "https://api.apaleo.com/swagger/inventory-v1/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "//api.apaleo.com",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            }
+        }
+    },
+    "triggers": {
+        "lookup": {
+            "main": "./lib/lookups/lookup.js",
+            "title": "Function to run a lookup",
+            "description": "Function to call an internal trigger or action"
+        },
+        "InventoryPropertiesGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Get a properties list",
+            "description": "Get the list of properties.<br>You need to be authorized (no particular scope required)",
+            "callParams": {
+                "pathName": "/inventory/v1/properties",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryPropertiesGet.in.json",
+                "out": "./lib/schemas/InventoryPropertiesGet.out.json"
+            }
+        },
+        "InventoryTypesCountriesGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Returns a list of supported countries.",
+            "description": "Returns a list of ISO country codes that could be used to create properties.<br>You need to be authorized (no particular scope required)",
+            "callParams": {
+                "pathName": "/inventory/v1/types/countries",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryTypesCountriesGet.in.json",
+                "out": "./lib/schemas/InventoryTypesCountriesGet.out.json"
+            }
+        },
+        "InventoryUnits_countGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Returns number of units",
+            "description": "Returns number of units matching the filter criteria<br>You must have at least one of these scopes: 'units.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/$count",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnits_countGet.in.json",
+                "out": "./lib/schemas/InventoryUnits_countGet.out.json"
+            }
+        },
+        "InventoryUnitsGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Get a units list",
+            "description": "Get the list of units.<br>You must have at least one of these scopes: 'units.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsGet.in.json",
+                "out": "./lib/schemas/InventoryUnitsGet.out.json"
+            }
+        },
+        "InventoryUnit_attributesGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Get unit attribute list",
+            "description": "Get unit attribute list<br>You must have at least one of these scopes: 'unitattributes.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesGet.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesGet.out.json"
+            }
+        },
+        "InventoryUnit_groupsGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Get all unit groups, or all unit groups for a property",
+            "description": "Get the list of unit groups.<br>You must have at least one of these scopes: 'unitgroups.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsGet.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsGet.out.json"
+            }
+        },
+        "InventoryUnit_groups_countGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Returns number of unit groups",
+            "description": "Returns number of unit groups matching the filter criteria<br>You must have at least one of these scopes: 'unitgroups.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups/$count",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groups_countGet.in.json",
+                "out": "./lib/schemas/InventoryUnit_groups_countGet.out.json"
+            }
+        },
+        "InventoryProperties_countGet": {
+            "main": "./lib/triggers/trigger.js",
+            "title": "Return total count of properties",
+            "description": "Return total count of properties<br>You need to be authorized (no particular scope required)",
+            "callParams": {
+                "pathName": "/inventory/v1/properties/$count",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryProperties_countGet.in.json",
+                "out": "./lib/schemas/InventoryProperties_countGet.out.json"
+            }
+        }
+    },
+    "actions": {
+        "InventoryPropertiesPost": {
+            "main": "./lib/actions/action.js",
+            "title": "Creates a property",
+            "description": "Use this call to create a new property.<br>You must have at least one of these scopes: 'properties.create, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/properties",
+                "method": "post",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryPropertiesPost.in.json",
+                "out": "./lib/schemas/InventoryPropertiesPost.out.json"
+            }
+        },
+        "InventoryPropertiesByIdHead": {
+            "main": "./lib/actions/action.js",
+            "title": "Check if a property exists",
+            "description": "Check if a property exists by id.<br>You need to be authorized (no particular scope required)",
+            "callParams": {
+                "pathName": "/inventory/v1/properties/{id}",
+                "method": "head"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryPropertiesByIdHead.in.json",
+                "out": "./lib/schemas/InventoryPropertiesByIdHead.out.json"
+            }
+        },
+        "InventoryPropertiesByIdGet": {
+            "main": "./lib/actions/action.js",
+            "title": "Get a property",
+            "description": "Get a property by id.<br>You need to be authorized (no particular scope required)",
+            "callParams": {
+                "pathName": "/inventory/v1/properties/{id}",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryPropertiesByIdGet.in.json",
+                "out": "./lib/schemas/InventoryPropertiesByIdGet.out.json"
+            }
+        },
+        "InventoryUnitsByIdPatch": {
+            "main": "./lib/actions/action.js",
+            "title": "Allows to patch unit",
+            "description": "Here's a list of allowed operations:\r\n- Set unit condition\r\n- Set unit description\r\n- Set unit name\r\n- Set unit unitGroupId\r\n- Set unit maxPersons\r\n- Add unit attribute\r\n- Remove unit attribute<br>You must have at least one of these scopes: 'units.manage, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/{id}",
+                "method": "patch",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsByIdPatch.in.json",
+                "out": "./lib/schemas/InventoryUnitsByIdPatch.out.json"
+            }
+        },
+        "InventoryUnitsByIdGet": {
+            "main": "./lib/actions/action.js",
+            "title": "Get a unit",
+            "description": "Get a unit by id.<br>You must have at least one of these scopes: 'units.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/{id}",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsByIdGet.in.json",
+                "out": "./lib/schemas/InventoryUnitsByIdGet.out.json"
+            }
+        },
+        "InventoryUnitsByIdDelete": {
+            "main": "./lib/actions/action.js",
+            "title": "Delete a unit",
+            "description": "Use this call to delete a unit.<br>You must have at least one of these scopes: 'units.delete, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/{id}",
+                "method": "delete"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsByIdDelete.in.json",
+                "out": "./lib/schemas/InventoryUnitsByIdDelete.out.json"
+            }
+        },
+        "InventoryUnitsPatch": {
+            "main": "./lib/actions/action.js",
+            "title": "Allows to patch one or more units",
+            "description": "Here's a list of allowed operations:\r\n- Set unit condition\r\n- Set unit description\r\n- Set unit name\r\n- Set unit unitGroupId\r\n- Set unit maxPersons\r\n- Add unit attribute\r\n- Remove unit attribute<br>You must have at least one of these scopes: 'units.manage, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units",
+                "method": "patch",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsPatch.in.json",
+                "out": "./lib/schemas/InventoryUnitsPatch.out.json"
+            }
+        },
+        "InventoryUnitsByIdHead": {
+            "main": "./lib/actions/action.js",
+            "title": "Check if a unit exists",
+            "description": "Check if a unit exists by id.<br>You must have at least one of these scopes: 'units.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/{id}",
+                "method": "head"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsByIdHead.in.json",
+                "out": "./lib/schemas/InventoryUnitsByIdHead.out.json"
+            }
+        },
+        "InventoryPropertiesByIdPatch": {
+            "main": "./lib/actions/action.js",
+            "title": "Allows to modify property",
+            "description": "Here's a list of allowed operations:\r\n- Replace Name\r\n- Add, replace and remove Description\r\n- Replace CompanyName\r\n- Add, replace and remove ManagingDirectors\r\n- Replace CommercialRegisterEntry\r\n- Replace TaxId\r\n- Replace Location\r\n- Add, replace and remove BankAccount\r\n- Replace PaymentTerms\r\n- Set IsTemplate<br>You must have at least one of these scopes: 'properties.manage, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/properties/{id}",
+                "method": "patch",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryPropertiesByIdPatch.in.json",
+                "out": "./lib/schemas/InventoryPropertiesByIdPatch.out.json"
+            }
+        },
+        "InventoryUnit_attributesByIdPatch": {
+            "main": "./lib/actions/action.js",
+            "title": "Allows to modify unit attribute",
+            "description": "Here's a list of allowed operations:\r\n- Replace / Remove Description<br>You must have at least one of these scopes: 'unitattributes.manage, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes/{id}",
+                "method": "patch",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesByIdPatch.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesByIdPatch.out.json"
+            }
+        },
+        "InventoryUnit_attributesByIdHead": {
+            "main": "./lib/actions/action.js",
+            "title": "Check if a unit attribute exists",
+            "description": "Check if a unit attribute exists<br>You must have at least one of these scopes: 'unitattributes.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes/{id}",
+                "method": "head"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesByIdHead.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesByIdHead.out.json"
+            }
+        },
+        "InventoryUnit_attributesByIdDelete": {
+            "main": "./lib/actions/action.js",
+            "title": "Deletes unit attribute",
+            "description": "Deletes unit attribute<br>You must have at least one of these scopes: 'unitattributes.delete, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes/{id}",
+                "method": "delete"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesByIdDelete.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesByIdDelete.out.json"
+            }
+        },
+        "InventoryUnit_attributesPost": {
+            "main": "./lib/actions/action.js",
+            "title": "Create a unit attribute",
+            "description": "Use this call to create a new unit attribute.<br>You must have at least one of these scopes: 'unitattributes.create, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes",
+                "method": "post",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesPost.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesPost.out.json"
+            }
+        },
+        "InventoryUnit_groupsPost": {
+            "main": "./lib/actions/action.js",
+            "title": "Create a unit group",
+            "description": "Use this call to create a new unit group.<br>You must have at least one of these scopes: 'unitgroups.create, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups",
+                "method": "post",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsPost.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsPost.out.json"
+            }
+        },
+        "InventoryUnit_groupsByIdGet": {
+            "main": "./lib/actions/action.js",
+            "title": "Get a unit group",
+            "description": "Get a unit group by id.<br>You must have at least one of these scopes: 'unitgroups.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups/{id}",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsByIdGet.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsByIdGet.out.json"
+            }
+        },
+        "InventoryUnit_groupsByIdHead": {
+            "main": "./lib/actions/action.js",
+            "title": "Check if a unit group exists",
+            "description": "Check if a unit group exists by id.<br>You must have at least one of these scopes: 'unitgroups.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups/{id}",
+                "method": "head"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsByIdHead.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsByIdHead.out.json"
+            }
+        },
+        "InventoryUnit_attributesByIdGet": {
+            "main": "./lib/actions/action.js",
+            "title": "Get unit attribute by id",
+            "description": "Get unit attribute by id<br>You must have at least one of these scopes: 'unitattributes.read, setup.read, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-attributes/{id}",
+                "method": "get"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_attributesByIdGet.in.json",
+                "out": "./lib/schemas/InventoryUnit_attributesByIdGet.out.json"
+            }
+        },
+        "InventoryUnitsPost": {
+            "main": "./lib/actions/action.js",
+            "title": "Create a unit",
+            "description": "Use this call to create a new unit.<br>You must have at least one of these scopes: 'units.create, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units",
+                "method": "post",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsPost.in.json",
+                "out": "./lib/schemas/InventoryUnitsPost.out.json"
+            }
+        },
+        "InventoryUnitsBulkPost": {
+            "main": "./lib/actions/action.js",
+            "title": "Create multiple units",
+            "description": "Use this call to create multiple units, following a naming rule.<br>You must have at least one of these scopes: 'units.create, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/units/bulk",
+                "method": "post",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnitsBulkPost.in.json",
+                "out": "./lib/schemas/InventoryUnitsBulkPost.out.json"
+            }
+        },
+        "InventoryUnit_groupsByIdPut": {
+            "main": "./lib/actions/action.js",
+            "title": "Replace a unit group",
+            "description": "Use this call to modify a unit group.<br>You must have at least one of these scopes: 'unitgroups.manage, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups/{id}",
+                "method": "put",
+                "requestContentType": "application/json"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsByIdPut.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsByIdPut.out.json"
+            }
+        },
+        "InventoryUnit_groupsByIdDelete": {
+            "main": "./lib/actions/action.js",
+            "title": "Delete a unit group",
+            "description": "Use this call to delete a unit group.<br>You must have at least one of these scopes: 'unitgroups.delete, setup.manage'.",
+            "callParams": {
+                "pathName": "/inventory/v1/unit-groups/{id}",
+                "method": "delete"
+            },
+            "metadata": {
+                "in": "./lib/schemas/InventoryUnit_groupsByIdDelete.in.json",
+                "out": "./lib/schemas/InventoryUnit_groupsByIdDelete.out.json"
+            }
+        }
+    }
+}

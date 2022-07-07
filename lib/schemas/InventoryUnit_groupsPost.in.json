@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "properties": {
+        "Idempotency-Key": {
+            "type": "string"
+        },
+        "requestBody": {
+            "required": [
+                "code",
+                "description",
+                "maxPersons",
+                "name",
+                "propertyId"
+            ],
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "The code for the unit group that can be shown in reports and table views",
+                    "maxLength": 10,
+                    "minLength": 3,
+                    "pattern": "^[a-zA-Z0-9_]*$",
+                    "type": "string"
+                },
+                "propertyId": {
+                    "description": "The id of the property where unit group will be created",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name for the unit group",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "description": "The description for the unit group",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "maxPersons": {
+                    "format": "int32",
+                    "description": "Maximum number of persons for the unit group",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "rank": {
+                    "format": "int32",
+                    "description": "The unit group rank\r\nRestrictions:\r\n- Should be greater or equal to one",
+                    "maximum": 2147483647,
+                    "minimum": 1,
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "The unit group type",
+                    "enum": [
+                        "BedRoom",
+                        "MeetingRoom",
+                        "EventSpace",
+                        "ParkingLot"
+                    ],
+                    "type": "string"
+                }
+            },
+            "example": "{\n  \"code\": \"DBL\",\n  \"propertyId\": \"MUC\",\n  \"name\": {\n    \"en\": \"Double Room\",\n    \"de\": \"Doppelzimmer\"\n  },\n  \"description\": {\n    \"en\": \"This is a nice room with as kingsize bed and flat screen\",\n    \"de\": \"Dies ist ein schönes Zimmer mit Kingsize-Bett und Flachbildschirm\"\n  },\n  \"maxPersons\": 4,\n  \"rank\": 1,\n  \"type\": \"BedRoom\"\n}"
+        }
+    }
+}

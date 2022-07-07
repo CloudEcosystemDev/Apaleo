@@ -1,0 +1,13 @@
+{
+    "required": [
+        "id"
+    ],
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The property id",
+            "type": "string"
+        }
+    },
+    "example": "{\n  \"id\": \"MUC\"\n}"
+}

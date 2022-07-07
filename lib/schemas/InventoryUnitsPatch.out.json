@@ -1,0 +1,183 @@
+{
+    "required": [
+        "created",
+        "description",
+        "id",
+        "maxPersons",
+        "name",
+        "property",
+        "status"
+    ],
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unit id",
+            "type": "string"
+        },
+        "name": {
+            "description": "The name for the unit",
+            "type": "string"
+        },
+        "description": {
+            "description": "The description for the unit",
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "property": {
+            "required": [
+                "id"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "The property id",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "The code for the property that can be shown in reports and table views",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name for the property",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description for the property",
+                    "type": "string",
+                    "readOnly": true
+                }
+            }
+        },
+        "unitGroup": {
+            "required": [
+                "id"
+            ],
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "The unit group id",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "The code for the unit group that can be shown in reports and table views",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The name for the unit group",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description for the unit group",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "The unit group type",
+                    "enum": [
+                        "BedRoom",
+                        "MeetingRoom",
+                        "EventSpace",
+                        "ParkingLot",
+                        "Other"
+                    ],
+                    "type": "string"
+                }
+            }
+        },
+        "status": {
+            "required": [
+                "condition",
+                "isOccupied"
+            ],
+            "type": "object",
+            "properties": {
+                "isOccupied": {
+                    "type": "boolean"
+                },
+                "condition": {
+                    "enum": [
+                        "Clean",
+                        "CleanToBeInspected",
+                        "Dirty"
+                    ],
+                    "type": "string"
+                },
+                "maintenance": {
+                    "required": [
+                        "from",
+                        "id",
+                        "to",
+                        "type"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "description": "The id for the scheduled maintenance",
+                            "type": "string"
+                        },
+                        "from": {
+                            "format": "date-time",
+                            "description": "Date and time the scheduled maintenance window starts<br />A date and time (without fractional second part) in UTC or with UTC offset as defined in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601:2004</a>",
+                            "type": "string"
+                        },
+                        "to": {
+                            "format": "date-time",
+                            "description": "Date and time the scheduled maintenance window ends<br />A date and time (without fractional second part) in UTC or with UTC offset as defined in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601:2004</a>",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "The type of maintenance that is planned for the unit. A small repair (OutOfService),\r\na bigger disfunction that does not allow to sell the unit (OutOfOrder) or is it\r\neven under construction and should reduce the house count (OutOfInventory)",
+                            "enum": [
+                                "OutOfService",
+                                "OutOfOrder",
+                                "OutOfInventory"
+                            ],
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "The description text for the maintenance",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "maxPersons": {
+            "format": "int32",
+            "description": "Maximum number of persons for the unit",
+            "type": "integer"
+        },
+        "created": {
+            "format": "date-time",
+            "description": "Date of creation<br />A date and time (without fractional second part) in UTC or with UTC offset as defined in <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO8601:2004</a>",
+            "type": "string"
+        },
+        "attributes": {
+            "description": "Collection of user defined attributes of unit",
+            "type": "array",
+            "items": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Id of unit attribute",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the unit attribute",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Description of unit attribute",
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "example": "{\n  \"id\": \"MUC-YTO\",\n  \"name\": \"1.001\",\n  \"description\": {\n    \"en\": \"First Floor Room 1\",\n    \"de\": \"1.OG Zimmer 1\"\n  },\n  \"property\": {\n    \"id\": \"BER\",\n    \"code\": \"BER\",\n    \"name\": \"Demo Hotel Berlin\",\n    \"description\": \"This is the demo hotel Berlin\"\n  },\n  \"unitGroup\": {\n    \"id\": \"MUC-DBL\",\n    \"code\": \"DBL\",\n    \"name\": \"Double\",\n    \"description\": \"Double\",\n    \"type\": \"BedRoom\"\n  },\n  \"status\": {\n    \"isOccupied\": false,\n    \"condition\": \"Clean\",\n    \"maintenance\": {\n      \"id\": \"MUC-YTO-SGHZD\",\n      \"from\": \"2022-07-07T15:48:37.1727089+02:00\",\n      \"to\": \"2022-07-09T15:48:37.1727089+02:00\",\n      \"type\": \"OutOfService\",\n      \"description\": \"The remote control for the TV needs to be replaced.\"\n    }\n  },\n  \"maxPersons\": 2,\n  \"created\": \"0001-01-01T00:00:00Z\",\n  \"attributes\": [\n    {\n      \"id\": \"KQOSXHLS\",\n      \"name\": \"Floor 3\",\n      \"description\": \"Floor number\"\n    },\n    {\n      \"id\": \"ADVFSSUL\",\n      \"name\": \"Street view\",\n      \"description\": \"View from the room\"\n    }\n  ]\n}"
+}

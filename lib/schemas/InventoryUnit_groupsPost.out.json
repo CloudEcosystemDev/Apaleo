@@ -1,0 +1,13 @@
+{
+    "required": [
+        "id"
+    ],
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "The unit group id",
+            "type": "string"
+        }
+    },
+    "example": "{\n  \"id\": \"MUC-DBL\"\n}"
+}
